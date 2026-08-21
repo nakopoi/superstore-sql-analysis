@@ -2,11 +2,11 @@
 
 ## Ringkasan Project
 
-Project ini menganalisis data penjualan **Superstore** menggunakan MySQL untuk mengevaluasi performa penjualan, profitabilitas, customer, produk, wilayah, discount, serta tren penjualan dari waktu ke waktu.
+Project ini menganalisis data penjualan **Superstore** menggunakan MySQL untuk mengevaluasi performa Sales, Profit, Customer, Product, Region, Discount, serta tren penjualan dari waktu ke waktu.
 
-Analisis dilakukan terhadap **10.194 baris data transaksi/order line** dari tahun **2023 sampai 2026**, yang terdiri dari **5.111 order unik**.
+Analisis dilakukan terhadap **10.194 baris data transaksi/order line** dari tahun **2023 sampai 2026**, yang terdiri dari **5.111 Order unik** dan **804 Customer unik**.
 
-Project ini berfokus pada proses:
+Project mencakup:
 
 - Data Preparation
 - Data Cleaning
@@ -25,29 +25,77 @@ This project analyzes Superstore sales data using MySQL to evaluate sales perfor
 
 ---
 
-# Tujuan Project
+## Key Findings
 
-Project ini dibuat untuk menjawab beberapa pertanyaan bisnis:
-
-- Bagaimana performa sales dan profit perusahaan secara keseluruhan?
-- Category mana yang menghasilkan sales dan profit terbesar?
-- Mengapa Furniture memiliki profit margin yang rendah?
-- Bagaimana hubungan discount dengan profitability?
-- Region mana yang memiliki performa terbaik?
-- Bagaimana performa customer?
-- Siapa customer dengan sales tertinggi?
-- Siapa customer dengan profit tertinggi?
-- Produk apa yang menghasilkan sales terbesar?
-- Produk apa yang menghasilkan profit terbesar?
-- Produk apa yang menghasilkan kerugian terbesar?
-- Bagaimana perkembangan sales dari tahun ke tahun?
-- Bagaimana perubahan sales dari bulan ke bulan?
-- Produk apa yang memiliki ranking tertinggi di masing-masing category?
-- Seberapa besar kontribusi setiap produk terhadap total company sales?
+- Total Sales mencapai **2,326,534.35** dengan Total Profit sebesar **292,296.81** dan overall Profit Margin **12.56%**.
+- **Technology** merupakan Category dengan Profit tertinggi dan Profit Margin sebesar **17.45%**.
+- **Furniture** menghasilkan Sales yang tinggi tetapi Profit Margin hanya **2.61%**.
+- **Tables** dan **Bookcases** menghasilkan Total Profit negatif.
+- Transaksi Furniture dengan Discount di atas **20%** secara agregat menghasilkan Profit Margin negatif.
+- **West** merupakan Region dengan performa terbaik berdasarkan Sales, Profit, Profit Margin, dan jumlah Order.
+- Customer dengan Sales tertinggi tidak selalu menjadi Customer paling profitable.
+- **2026** merupakan tahun dengan Sales, Profit, dan jumlah Order tertinggi.
+- Produk dengan Sales tertinggi hanya berkontribusi sekitar **2.65%** terhadap Total Sales, menunjukkan Sales relatif tersebar di banyak produk.
 
 ---
 
-# Dataset
+## Visual Highlights
+
+### 1. Overall Business KPI
+
+![Overall Business KPI](images/01_overall_kpi.png)
+
+Ringkasan KPI utama mencakup Total Sales, Total Profit, Profit Margin, Total Quantity, Total Orders, Total Customers, dan Average Order Value.
+
+### 2. Furniture Discount Analysis
+
+![Furniture Discount Analysis](images/02_discount_analysis.png)
+
+Transaksi Furniture dengan Discount di atas 20% secara agregat menunjukkan Profit Margin negatif.
+
+### 3. Yearly Sales Performance
+
+![Yearly Sales Performance](images/03_yearly_sales_performance.png)
+
+Performa meningkat pada 2025 dan 2026, dengan 2026 menghasilkan Sales, Profit, dan jumlah Order tertinggi.
+
+### 4. Regional Performance
+
+![Regional Performance](images/04_region_performance.png)
+
+West merupakan Region dengan performa terkuat berdasarkan Sales, Profit, Profit Margin, dan Total Orders.
+
+### 5. Advanced SQL Analysis
+
+![Advanced SQL Analysis](images/05_advanced_sql_analysis.png)
+
+Product Ranking dilakukan menggunakan SQL Window Function untuk memberikan ranking Product di dalam masing-masing Category.
+
+---
+
+
+## Tujuan Project
+
+Project ini dibuat untuk menjawab beberapa pertanyaan bisnis:
+
+- Bagaimana performa Sales dan Profit perusahaan secara keseluruhan?
+- Category mana yang menghasilkan Sales dan Profit terbesar?
+- Mengapa Furniture memiliki Profit Margin yang rendah?
+- Bagaimana hubungan antara Discount dan Profitability?
+- Region mana yang memiliki performa terbaik?
+- Bagaimana performa Customer?
+- Siapa Customer dengan Sales tertinggi?
+- Siapa Customer dengan Profit tertinggi?
+- Product apa yang menghasilkan Sales dan Profit terbesar?
+- Product apa yang menghasilkan kerugian terbesar?
+- Bagaimana perkembangan Sales dari tahun ke tahun?
+- Bagaimana perubahan Sales dari bulan ke bulan?
+- Product apa yang memiliki ranking tertinggi di masing-masing Category?
+- Seberapa besar kontribusi setiap Product terhadap Total Sales perusahaan?
+
+---
+
+## Dataset
 
 Dataset berasal dari workbook **Sample Superstore**.
 
@@ -61,45 +109,31 @@ Returns
 
 Namun, **project ini hanya menggunakan sheet `Orders`**.
 
-Sheet `Orders` dipilih karena berisi data transaksi yang dibutuhkan untuk melakukan analisis:
-
-- Sales
-- Profit
-- Customer
-- Product
-- Category
-- Discount
-- Region
-- Order Date
-- Quantity
+Sheet `Orders` dipilih karena berisi data transaksi yang dibutuhkan untuk analisis Sales.
 
 Dataset yang digunakan memiliki:
 
 - **10.194 baris data**
-- **5.111 order unik**
-- **804 customer unik**
+- **5.111 Order unik**
+- **804 Customer unik**
 - Periode data **2023–2026**
 
-## Scope Dataset
+### Scope Dataset
 
 Project ini merupakan **single-table sales analysis**.
 
-Sheet berikut **tidak digunakan**:
+Sheet berikut tidak digunakan:
 
 - `People`
 - `Returns`
 
-Kedua sheet tersebut berada di luar scope project ini.
-
-Dengan demikian, project ini **tidak melakukan analisis return maupun analisis data People/Regional Manager**.
+Dengan demikian, project ini tidak mencakup Return Analysis maupun People / Regional Manager Analysis.
 
 Fokus utama project adalah menganalisis performa bisnis berdasarkan data transaksi pada sheet `Orders`.
 
----
+### Kolom Utama
 
-# Kolom yang Digunakan
-
-Beberapa kolom utama pada dataset Orders:
+Beberapa kolom utama yang digunakan:
 
 - Row ID
 - Order ID
@@ -125,7 +159,7 @@ Beberapa kolom utama pada dataset Orders:
 
 ---
 
-# Tools yang Digunakan
+## Tools yang Digunakan
 
 - MySQL 8.0
 - MySQL Workbench
@@ -135,7 +169,7 @@ Beberapa kolom utama pada dataset Orders:
 
 ---
 
-# Data Preparation
+## Data Preparation
 
 Dataset awal berasal dari sheet:
 
@@ -143,28 +177,26 @@ Dataset awal berasal dari sheet:
 
 pada workbook Sample Superstore.
 
-Sheet Orders kemudian disimpan menjadi file:
+Sheet Orders kemudian disimpan menjadi:
 
 `orders.csv`
 
-File CSV tersebut kemudian di-import ke MySQL sebagai tabel:
+File CSV kemudian di-import ke MySQL sebagai tabel:
 
 `orders_raw`
 
-> Petunjuk lengkap untuk meng-import dataset ke MySQL dapat dilihat di:
+> Petunjuk lengkap proses import dapat dilihat di:
 > [`00_import_instructions.md`](00_import_instructions.md)
 
 Tabel raw dipertahankan agar data asli tetap tersedia dan tidak langsung dimodifikasi.
 
-Setelah proses data cleaning, dibuat tabel:
+Setelah Data Cleaning, dibuat tabel:
 
 `orders_clean`
 
-Seluruh analisis bisnis kemudian dilakukan menggunakan tabel:
+Seluruh Business Analysis dilakukan menggunakan tabel `orders_clean`.
 
-`orders_clean`
-
-## Alur Data
+### Alur Data
 
 ```text
 Sample Superstore Workbook
@@ -184,15 +216,13 @@ Sample Superstore Workbook
 
 ---
 
-# Data Cleaning
+## Data Cleaning
 
-Proses data cleaning dilakukan menggunakan SQL.
+Proses Data Cleaning dilakukan menggunakan SQL.
 
-## 1. Standardisasi Nama Kolom
+### 1. Standardisasi Nama Kolom
 
 Nama kolom diubah menjadi format yang lebih mudah digunakan dalam SQL.
-
-Contoh:
 
 ```text
 Order ID        → order_id
@@ -206,35 +236,19 @@ Sub-Category    → sub_category
 Product Name    → product_name
 ```
 
----
+### 2. Konversi Tanggal
 
-## 2. Konversi Tanggal
+`Order Date` dan `Ship Date` awalnya tersimpan sebagai text.
 
-Kolom:
-
-`Order Date`
-
-dan:
-
-`Ship Date`
-
-awalnya tersimpan sebagai text.
-
-Keduanya dikonversi menjadi tipe data:
-
-`DATE`
-
-menggunakan fungsi:
+Keduanya dikonversi menjadi tipe `DATE` menggunakan:
 
 ```sql
 STR_TO_DATE()
 ```
 
----
+### 3. Konversi Data Numerik
 
-## 3. Konversi Data Numerik
-
-Kolom berikut sebelumnya tersimpan sebagai text:
+Kolom berikut awalnya tersimpan sebagai text:
 
 - Sales
 - Discount
@@ -256,13 +270,11 @@ profit    → DECIMAL(12,4)
 quantity  → INT
 ```
 
----
-
-## 4. Postal Code
+### 4. Postal Code
 
 Postal Code tidak selalu terdiri dari angka.
 
-Beberapa kode dapat memiliki format seperti:
+Contohnya:
 
 ```text
 M7A
@@ -278,9 +290,9 @@ dan bukan sebagai integer.
 
 ---
 
-# Data Quality Check
+## Data Quality Check
 
-Sebelum analisis bisnis dilakukan, dataset diperiksa untuk memastikan kualitas data.
+Sebelum Business Analysis dilakukan, dataset diperiksa untuk memastikan kualitas data.
 
 Pengecekan meliputi:
 
@@ -292,43 +304,14 @@ Pengecekan meliputi:
 - Discount Range
 - Profit Range
 
-## Hasil Data Quality Check
+### Hasil Data Quality Check
 
-### Total Data
-
-```text
-10.194 rows
-```
-
-### Missing Values
-
-Tidak ditemukan missing value pada kolom penting:
-
-```text
-order_id
-order_date
-customer_id
-product_id
-sales
-quantity
-profit
-```
-
-### Duplicate Row ID
-
-Tidak ditemukan duplicate berdasarkan:
-
-`row_id`
-
-### Validasi Tanggal
-
-Tidak ditemukan kondisi:
-
-```text
-ship_date < order_date
-```
-
-Artinya tidak terdapat transaksi yang tercatat dikirim sebelum tanggal order.
+| Check | Hasil |
+|---|---:|
+| Total Rows | 10.194 |
+| Missing Values pada kolom penting | 0 |
+| Duplicate Row ID | 0 |
+| Ship Date sebelum Order Date | 0 |
 
 ### Numeric Range
 
@@ -366,17 +349,11 @@ Profit negatif tidak dianggap sebagai data error karena transaksi dapat menghasi
 
 ### Insight
 
-Bisnis menghasilkan lebih dari **2,3 juta total sales** dengan total profit sekitar **292 ribu**.
+Bisnis menghasilkan lebih dari **2.3 juta Total Sales** dengan Total Profit sekitar **292 ribu**.
 
-Overall Profit Margin:
+Overall Profit Margin sebesar **12.56%**, sedangkan Average Order Value sebesar **455.20**.
 
-**12,56%**
-
-Average Order Value:
-
-**455,20**
-
-Secara keseluruhan bisnis menghasilkan profit positif.
+Secara keseluruhan bisnis menghasilkan Profit positif.
 
 ---
 
@@ -390,27 +367,19 @@ Secara keseluruhan bisnis menghasilkan profit positif.
 
 ### Insight
 
-**Technology** merupakan category dengan sales dan profit tertinggi.
+**Technology** merupakan Category dengan Sales dan Profit tertinggi serta menghasilkan Profit Margin **17.45%**.
 
-Technology menghasilkan profit margin:
+Office Supplies juga memiliki Profit Margin yang kuat sebesar **17.22%**.
 
-**17,45%**
+Furniture menghasilkan Sales yang relatif tinggi, tetapi Profit Margin hanya **2.61%**.
 
-Office Supplies juga memiliki profitability yang kuat dengan margin:
-
-**17,22%**
-
-Furniture memiliki sales yang cukup tinggi, tetapi profit margin hanya:
-
-**2,61%**
-
-Hal ini menunjukkan adanya masalah profitability pada Furniture.
+Hal ini menunjukkan bahwa Category Furniture memiliki masalah profitabilitas meskipun menghasilkan nilai Sales yang cukup besar.
 
 ---
 
 ## 3. Furniture Profitability Analysis
 
-Untuk mengetahui penyebab rendahnya profitability Furniture, dilakukan analisis pada level Sub-Category.
+Untuk mengetahui penyebab rendahnya Profitability Furniture, analisis dilanjutkan pada level Sub-Category.
 
 | Sub-Category | Total Sales | Total Profit | Profit Margin |
 |---|---:|---:|---:|
@@ -421,7 +390,7 @@ Untuk mengetahui penyebab rendahnya profitability Furniture, dilakukan analisis 
 
 ### Insight
 
-Dua Sub-Category menghasilkan profit negatif.
+Dua Sub-Category menghasilkan Total Profit negatif:
 
 **Tables**
 
@@ -439,13 +408,13 @@ Profit : -3,632.07
 Margin : -3.15%
 ```
 
-Tables merupakan penyumbang kerugian terbesar pada category Furniture.
+Tables merupakan penyumbang kerugian terbesar pada Category Furniture.
 
 ---
 
 ## 4. Discount Analysis
 
-Analisis dilanjutkan untuk melihat apakah discount memiliki hubungan dengan rendahnya profitability Furniture.
+Analisis dilanjutkan untuk melihat hubungan antara Discount dan Profitability Furniture.
 
 ### Average Discount berdasarkan Sub-Category
 
@@ -456,7 +425,7 @@ Analisis dilanjutkan untuk melihat apakah discount memiliki hubungan dengan rend
 | Chairs | 16.92% |
 | Furnishings | 13.81% |
 
-Tables dan Bookcases memiliki average discount tertinggi sekaligus menghasilkan total profit negatif.
+Tables dan Bookcases memiliki Average Discount tertinggi sekaligus menghasilkan Total Profit negatif.
 
 ### Profitability berdasarkan Discount Group
 
@@ -470,25 +439,18 @@ Tables dan Bookcases memiliki average discount tertinggi sekaligus menghasilkan 
 
 ### Insight
 
-Profitability Furniture menurun ketika tingkat discount meningkat.
+Profit Margin Furniture cenderung menurun seiring meningkatnya tingkat Discount.
 
-Transaksi tanpa discount menghasilkan Profit Margin:
+Transaksi tanpa Discount menghasilkan Profit Margin **22.86%**.
 
-**22,86%**
+Sebaliknya:
 
-Discount **21–30%** menghasilkan:
+- Discount **21–30%** menghasilkan Profit Margin **-10.77%**
+- Discount **Above 30%** menghasilkan Profit Margin **-45.90%**
 
-**-10,77%**
+Transaksi Furniture dengan Discount di atas **20%** secara agregat menghasilkan Profit negatif.
 
-Discount **Above 30%** menghasilkan:
-
-**-45,90%**
-
-Transaksi Furniture dengan discount di atas **20%** secara agregat menghasilkan profit negatif.
-
-Hasil ini menunjukkan adanya **hubungan kuat antara tingkat discount yang tinggi dan rendahnya profitability Furniture**.
-
-Analisis ini menunjukkan hubungan atau association dan tidak secara langsung membuktikan hubungan sebab-akibat.
+Temuan ini menunjukkan adanya hubungan antara tingkat Discount dan Profit Margin, tetapi tidak secara langsung membuktikan hubungan sebab-akibat.
 
 ---
 
@@ -503,20 +465,18 @@ Analisis ini menunjukkan hubungan atau association dan tidak secara langsung mem
 
 ### Insight
 
-**West** merupakan region dengan performa terbaik berdasarkan:
+**West** merupakan Region dengan performa terbaik berdasarkan:
 
 - Sales
 - Profit
 - Profit Margin
 - Total Orders
 
-Central memiliki sales lebih tinggi daripada South tetapi menghasilkan profit yang lebih rendah.
+Central menghasilkan Sales lebih tinggi daripada South tetapi Profit lebih rendah.
 
-Central memiliki Profit Margin terendah:
+Central juga memiliki Profit Margin terendah sebesar **7.92%**.
 
-**7,92%**
-
-Hal ini menunjukkan bahwa Central dapat menjadi region yang perlu dianalisis lebih lanjut.
+Central Region perlu dianalisis lebih lanjut untuk mengidentifikasi faktor yang menyebabkan Profit Margin lebih rendah dibandingkan Region lainnya.
 
 ---
 
@@ -538,7 +498,7 @@ Total Profit : -1,980.74
 Total Orders : 5
 ```
 
-Walaupun menghasilkan total sales tertinggi, customer tersebut menghasilkan total profit negatif.
+Walaupun menghasilkan Total Sales tertinggi, Customer tersebut menghasilkan Total Profit negatif.
 
 ### Customer dengan Profit Tertinggi
 
@@ -552,25 +512,21 @@ Total Orders : 5
 
 ### Insight
 
-Sales yang tinggi tidak selalu menghasilkan profitability yang tinggi.
+Sales yang tinggi tidak selalu menghasilkan Profit yang tinggi.
 
-Customer performance sebaiknya dievaluasi berdasarkan:
-
-**Sales dan Profitability**
-
-bukan hanya total nilai pembelian.
+Performa Customer sebaiknya dievaluasi menggunakan Sales dan Profit secara bersamaan, bukan hanya berdasarkan nilai pembelian.
 
 ---
 
 ## 7. Product Analysis
 
-Produk dianalisis berdasarkan:
+Product dianalisis berdasarkan:
 
 - Total Sales
 - Total Profit
 - Highest Loss
 
-### Product dengan Sales Tertinggi
+### Product dengan Sales dan Profit Tertinggi
 
 **Canon imageCLASS 2200 Advanced Copier**
 
@@ -578,8 +534,6 @@ Produk dianalisis berdasarkan:
 Total Sales  : 61,599.82
 Total Profit : 25,199.93
 ```
-
-Produk tersebut juga merupakan produk dengan profit tertinggi.
 
 ### Product dengan Kerugian Terbesar
 
@@ -592,19 +546,13 @@ Total Profit : -8,879.97
 
 ### Insight
 
-Beberapa produk dengan sales tinggi tetap dapat menghasilkan profit negatif.
+Sales yang tinggi tidak selalu menunjukkan performa Product yang baik.
 
-Hal ini menunjukkan bahwa:
-
-**Sales volume saja tidak cukup untuk mengevaluasi product performance.**
-
-Profitability juga harus menjadi bagian dari evaluasi.
+Profit juga perlu dipertimbangkan untuk menilai Product Performance secara lebih menyeluruh.
 
 ---
 
 ## 8. Sales Trend Analysis
-
-Analisis dilakukan untuk melihat perkembangan bisnis dari tahun ke tahun dan bulan ke bulan.
 
 ### Yearly Sales Performance
 
@@ -617,19 +565,17 @@ Analisis dilakukan untuk melihat perkembangan bisnis dari tahun ke tahun dan bul
 
 ### Insight
 
-Sales sedikit menurun pada 2024 dibandingkan 2023.
+Sales sedikit menurun pada 2024 dibandingkan 2023, tetapi Profit tetap meningkat.
 
-Walaupun sales menurun, profit tetap meningkat.
+Performa kemudian meningkat pada 2025 dan 2026, baik dari sisi Sales, Profit, maupun jumlah Order.
 
-Pada 2025 dan 2026 terjadi pertumbuhan yang kuat.
-
-**2026 merupakan tahun dengan sales, profit, dan jumlah order tertinggi.**
+**2026 merupakan tahun dengan Sales, Profit, dan jumlah Order tertinggi.**
 
 ---
 
 ## 9. Month-over-Month Growth
 
-Month-over-Month Growth digunakan untuk melihat perubahan sales dibandingkan bulan sebelumnya.
+Month-over-Month Growth digunakan untuk melihat perubahan Sales dibandingkan bulan sebelumnya.
 
 Perhitungan menggunakan SQL Window Function:
 
@@ -645,11 +591,11 @@ Rumus:
               Previous Month Sales
 ```
 
-Nilai positif berarti sales meningkat dibanding bulan sebelumnya.
+Nilai positif menunjukkan peningkatan Sales dibandingkan bulan sebelumnya.
 
-Nilai negatif berarti sales mengalami penurunan.
+Nilai negatif menunjukkan penurunan Sales.
 
-Salah satu pertumbuhan tertinggi terjadi pada:
+Pertumbuhan tertinggi terjadi pada:
 
 **March 2023**
 
@@ -657,15 +603,15 @@ dengan:
 
 **MoM Growth = 1,159.63%**
 
-Nilai yang sangat tinggi tersebut dipengaruhi oleh sales February 2023 yang relatif rendah, sehingga menghasilkan efek **low base**.
+Nilai yang sangat tinggi tersebut dipengaruhi oleh Sales February 2023 yang relatif rendah sehingga menghasilkan efek **low base**.
 
 ---
 
 ## 10. Advanced SQL Analysis
 
-Bagian terakhir project menggunakan beberapa teknik SQL intermediate seperti:
+Bagian ini menggunakan beberapa teknik SQL intermediate:
 
-- Common Table Expression
+- Common Table Expression (CTE)
 - Window Functions
 - RANK()
 - PARTITION BY
@@ -675,7 +621,7 @@ Bagian terakhir project menggunakan beberapa teknik SQL intermediate seperti:
 
 ### Product Ranking Within Each Category
 
-Produk diberi ranking berdasarkan total sales di masing-masing category menggunakan:
+Product diberi ranking berdasarkan Total Sales di masing-masing Category menggunakan:
 
 ```sql
 RANK() OVER (
@@ -684,111 +630,100 @@ RANK() OVER (
 )
 ```
 
-Dengan cara ini, ranking dimulai kembali untuk masing-masing category.
+Dengan cara ini, ranking dimulai kembali untuk setiap Category.
 
 Analisis menghasilkan:
 
-**Top 5 Products by Sales within each Category**
-
-dan:
-
-**Top 5 Products by Profit within each Category**
+- **Top 5 Products by Sales within each Category**
+- **Top 5 Products by Profit within each Category**
 
 ### Product Sales Contribution
 
-Analisis dilakukan untuk mengetahui kontribusi setiap produk terhadap total company sales.
-
-Produk dengan sales terbesar:
+Product dengan Sales terbesar:
 
 **Canon imageCLASS 2200 Advanced Copier**
 
 memberikan kontribusi sekitar:
 
-**2,65% dari total company sales**
+**2.65% dari Total Sales perusahaan**
 
-Sedangkan Top 10 Products berdasarkan sales secara kumulatif memberikan kontribusi sekitar:
+Sedangkan Top 10 Products berdasarkan Sales secara kumulatif berkontribusi sekitar:
 
-**10,51% dari total sales**
+**10.51% dari Total Sales**
 
 ### Insight
 
-Sales perusahaan relatif tersebar di banyak produk.
+Kontribusi Sales relatif tersebar di banyak Product.
 
-Perusahaan tidak terlalu bergantung pada satu atau dua produk saja sebagai sumber utama sales.
+Product dengan Sales tertinggi hanya menyumbang sekitar **2.65%** dari Total Sales, sehingga perusahaan tidak terlalu bergantung pada satu Product sebagai sumber utama Sales.
 
 ---
 
 # Business Recommendations
 
-Berdasarkan hasil analisis, beberapa rekomendasi bisnis dapat diberikan.
+## 1. Evaluasi Strategi Discount Furniture
 
-## 1. Review Furniture Discount Strategy
-
-Strategi discount Furniture perlu dievaluasi, khususnya pada:
+Strategi Discount Furniture perlu dievaluasi, khususnya pada:
 
 - Tables
 - Bookcases
 
-Kedua Sub-Category tersebut menghasilkan total profit negatif.
+Kedua Sub-Category tersebut menghasilkan Total Profit negatif.
 
-## 2. Evaluate Discounts Above 20%
+## 2. Evaluasi Discount di Atas 20%
 
-Kelompok transaksi Furniture dengan discount di atas 20% menghasilkan Profit Margin negatif.
+Kelompok transaksi Furniture dengan Discount di atas 20% menghasilkan Profit Margin negatif.
 
-Discount besar sebaiknya diberikan secara lebih selektif dengan mempertimbangkan profitability.
+Discount besar sebaiknya diberikan secara lebih selektif dengan mempertimbangkan Profitability.
 
-## 3. Investigate Tables and Bookcases
+## 3. Investigasi Tables dan Bookcases
 
-Perlu dilakukan analisis lebih lanjut terhadap:
+Analisis lebih lanjut dapat dilakukan terhadap:
 
 - Pricing
 - Cost Structure
 - Discount Strategy
 - Product Mix
 
-untuk mengetahui penyebab kerugian pada Tables dan Bookcases.
+untuk mengetahui faktor yang menyebabkan kerugian pada Tables dan Bookcases.
 
-## 4. Improve Central Region Profitability
+## 4. Tingkatkan Profitabilitas Central Region
 
-Central menghasilkan sales yang cukup besar tetapi hanya memiliki Profit Margin:
+Central menghasilkan Sales yang cukup besar tetapi hanya memiliki Profit Margin **7.92%**.
 
-**7,92%**
+Region tersebut perlu dianalisis lebih lanjut untuk mengetahui penyebab rendahnya Profitability.
 
-Region tersebut perlu dianalisis lebih lanjut untuk mengetahui penyebab rendahnya profitability.
+## 5. Evaluasi Customer Berdasarkan Profitabilitas
 
-## 5. Evaluate Customers Using Profitability
+Customer dengan Sales tinggi belum tentu menghasilkan Profit tinggi.
 
-Customer dengan sales tinggi belum tentu menghasilkan profit tinggi.
-
-Customer performance sebaiknya dianalisis menggunakan beberapa metric seperti:
+Evaluasi Customer sebaiknya menggunakan beberapa metric:
 
 - Sales
 - Profit
 - Profit Margin
 - Order Frequency
 
-## 6. Review Loss-Making Products
+## 6. Evaluasi Product yang Menghasilkan Kerugian
 
-Produk dengan sales tinggi tetapi profit negatif perlu dievaluasi lebih lanjut.
+Product dengan Sales tinggi tetapi Profit negatif perlu diperiksa lebih lanjut.
 
-Beberapa faktor yang dapat diperiksa:
+Beberapa faktor yang dapat dianalisis:
 
 - Discount
 - Pricing
 - Cost
 - Product Strategy
 
-## 7. Maintain Strong Categories
+## 7. Pertahankan Category dengan Performa Kuat
 
-Technology dan Office Supplies memiliki profitability yang relatif kuat.
+Technology dan Office Supplies memiliki Profitability yang relatif kuat.
 
-Strategi bisnis dapat mempertahankan dan mengembangkan performa kedua category tersebut.
+Strategi bisnis dapat mempertahankan dan mengembangkan performa kedua Category tersebut.
 
 ---
 
 # SQL Skills yang Digunakan
-
-Project ini menggunakan konsep SQL mulai dari basic hingga intermediate.
 
 ## SQL Fundamentals
 
@@ -856,6 +791,7 @@ Month-over-Month Growth
 Superstore_SQL_Portfolio/
 │
 ├── README.md
+├── 00_import_instructions.md
 │
 ├── dataset/
 │   └── orders.csv
@@ -879,91 +815,18 @@ Project memiliki **10 file SQL**.
 
 # SQL Files
 
-### 01_database_setup.sql
-
-Digunakan untuk:
-
-- Membuat database
-- Memilih database
-- Memvalidasi jumlah data
-
-### 02_data_cleaning.sql
-
-Digunakan untuk:
-
-- Membuat `orders_clean`
-- Mengubah tipe data
-- Membersihkan nama kolom
-- Menyiapkan dataset untuk analisis
-
-### 03_data_quality_check.sql
-
-Digunakan untuk:
-
-- Missing Value Check
-- Duplicate Check
-- Date Validation
-- Numeric Range Validation
-
-### 04_kpi_category_analysis.sql
-
-Digunakan untuk:
-
-- Overall KPI
-- Category Performance
-- Furniture Sub-Category Analysis
-
-### 05_discount_analysis.sql
-
-Digunakan untuk:
-
-- Average Discount Analysis
-- Discount Group Analysis
-- Discount vs Profitability Analysis
-
-### 06_region_analysis.sql
-
-Digunakan untuk:
-
-- Regional Sales
-- Regional Profit
-- Regional Profit Margin
-- Regional Orders
-
-### 07_customer_analysis.sql
-
-Digunakan untuk:
-
-- Customer Segment Analysis
-- Top Customers by Sales
-- Top Customers by Profit
-
-### 08_product_analysis.sql
-
-Digunakan untuk:
-
-- Top Products by Sales
-- Top Products by Profit
-- Products with Highest Loss
-
-### 09_sales_trend_analysis.sql
-
-Digunakan untuk:
-
-- Yearly Sales Trend
-- Monthly Sales Trend
-- Month-over-Month Growth
-- Highest and Lowest Monthly Growth
-
-### 10_advanced_analysis.sql
-
-Digunakan untuk:
-
-- Product Ranking by Category
-- Product Profit Ranking
-- Product Sales Contribution
-- Cumulative Sales
-- Window Function Analysis
+| File | Fungsi |
+|---|---|
+| `01_database_setup.sql` | Membuat database, memilih database project, dan mengonfirmasi database aktif |
+| `02_data_cleaning.sql` | Membuat `orders_clean`, mengubah tipe data, dan menyiapkan dataset analisis |
+| `03_data_quality_check.sql` | Missing Value, Duplicate, Date, dan Numeric Range Validation |
+| `04_kpi_category_analysis.sql` | Overall KPI, Category Performance, dan Furniture Analysis |
+| `05_discount_analysis.sql` | Average Discount dan Discount vs Profitability Analysis |
+| `06_region_analysis.sql` | Regional Sales, Profit, Profit Margin, dan Orders |
+| `07_customer_analysis.sql` | Segment dan Customer Performance |
+| `08_product_analysis.sql` | Product Sales, Profit, dan Highest Loss |
+| `09_sales_trend_analysis.sql` | Yearly Trend, Monthly Trend, dan Month-over-Month Growth |
+| `10_advanced_analysis.sql` | Ranking, Window Functions, dan Product Sales Contribution |
 
 ---
 
@@ -978,69 +841,63 @@ Gunakan:
 
 ## 2. Buat Database
 
-```sql
-CREATE DATABASE IF NOT EXISTS superstore_portfolio;
-```
+Jalankan:
 
-Kemudian:
+`sql/01_database_setup.sql`
 
-```sql
-USE superstore_portfolio;
-```
+Script akan membuat dan memilih database:
+
+`superstore_portfolio`
 
 ## 3. Import Dataset
 
-Import:
+Gunakan:
 
-```text
-dataset/orders.csv
-```
+`dataset/orders.csv`
 
-ke dalam MySQL sebagai:
+dan import ke MySQL sebagai tabel:
 
-```text
-orders_raw
-```
+`orders_raw`
+
+Petunjuk lengkap:
+
+[`00_import_instructions.md`](00_import_instructions.md)
 
 ## 4. Jalankan Data Cleaning
 
 Jalankan:
 
-```text
-02_data_cleaning.sql
-```
+`sql/02_data_cleaning.sql`
 
-Script tersebut akan membuat:
+Script akan membuat:
 
-```text
-orders_clean
-```
+`orders_clean`
 
 ## 5. Jalankan Data Quality Check
 
-```text
-03_data_quality_check.sql
-```
+Jalankan:
 
-## 6. Jalankan Analisis
+`sql/03_data_quality_check.sql`
 
-Analisis dapat dijalankan sesuai kebutuhan melalui:
+## 6. Jalankan Business Analysis
 
 ```text
-04_kpi_category_analysis.sql
-05_discount_analysis.sql
-06_region_analysis.sql
-07_customer_analysis.sql
-08_product_analysis.sql
-09_sales_trend_analysis.sql
-10_advanced_analysis.sql
+sql/04_kpi_category_analysis.sql
+sql/05_discount_analysis.sql
+sql/06_region_analysis.sql
+sql/07_customer_analysis.sql
+sql/08_product_analysis.sql
+sql/09_sales_trend_analysis.sql
+sql/10_advanced_analysis.sql
 ```
 
 ---
 
 # Scope dan Limitasi Project
 
-Project ini **hanya menggunakan sheet `Orders`** dari workbook Sample Superstore.
+Project ini hanya menggunakan sheet:
+
+`Orders`
 
 Sheet berikut tidak digunakan:
 
@@ -1049,43 +906,39 @@ People
 Returns
 ```
 
-Karena itu, project ini belum mencakup:
+Karena itu project belum mencakup:
 
 - Returned Order Analysis
 - Return Rate Analysis
 - Relationship between Returns and Profit
 - People / Regional Manager Analysis
-- Multi-table JOIN Analysis antara Orders, Returns, dan People
+- Multi-table JOIN antara Orders, Returns, dan People
 
 Hal tersebut sengaja berada di luar scope karena project pertama ini difokuskan pada:
 
 **Single-table Sales Analysis menggunakan SQL.**
 
-Analisis multi-table dan SQL JOIN dapat dikembangkan pada project SQL berikutnya.
+Multi-table Analysis dan SQL JOIN dapat dikembangkan pada project berikutnya.
 
 ---
 
 # Kesimpulan
 
-Secara keseluruhan, bisnis Superstore menghasilkan profit positif dengan:
+Secara keseluruhan, bisnis Superstore menghasilkan:
 
-**Total Sales = 2,326,534.35**
+- **Total Sales: 2,326,534.35**
+- **Total Profit: 292,296.81**
+- **Profit Margin: 12.56%**
 
-**Total Profit = 292,296.81**
+Technology dan Office Supplies menunjukkan Profitability yang relatif kuat.
 
-**Profit Margin = 12.56%**
+Furniture memiliki Profit Margin yang jauh lebih rendah, terutama karena Tables dan Bookcases menghasilkan Total Profit negatif.
 
-Technology dan Office Supplies menunjukkan profitability yang relatif kuat.
+Analisis Discount menunjukkan bahwa transaksi Furniture dengan Discount di atas 20% secara agregat memiliki Profit Margin negatif.
 
-Sebaliknya, Furniture memiliki Profit Margin yang jauh lebih rendah.
+Analisis Customer dan Product juga menunjukkan bahwa Sales yang tinggi tidak selalu menghasilkan Profit yang tinggi.
 
-Analisis lebih lanjut menemukan bahwa Tables dan Bookcases menghasilkan total profit negatif.
-
-Analisis discount juga menunjukkan bahwa transaksi Furniture dengan discount di atas 20% memiliki Profit Margin negatif.
-
-Analisis customer dan product menunjukkan bahwa sales yang tinggi tidak selalu menghasilkan profit yang tinggi.
-
-Dari sisi tren, performa bisnis meningkat kuat pada 2025 dan 2026, dengan 2026 menjadi tahun dengan sales, profit, dan jumlah order tertinggi.
+Dari sisi tren, performa bisnis meningkat kuat pada 2025 dan 2026, dengan 2026 menjadi tahun dengan Sales, Profit, dan jumlah Order tertinggi.
 
 Project ini menunjukkan bagaimana SQL dapat digunakan untuk:
 
@@ -1093,25 +946,10 @@ Project ini menunjukkan bagaimana SQL dapat digunakan untuk:
 - Membersihkan data
 - Memvalidasi kualitas data
 - Menghitung Business KPI
-- Menganalisis profitability
-- Menginvestigasi business problems
-- Menganalisis customer dan product
-- Menganalisis sales trend
+- Menganalisis Profitability
+- Menginvestigasi Business Problems
+- Menganalisis Customer dan Product
+- Menganalisis Sales Trend
 - Menggunakan Window Functions
-- Menghasilkan business insights
-- Memberikan business recommendations
-
----
-
-## Catatan
-
-Project ini dibuat sebagai **project SQL portfolio pertama** dengan fokus pada analisis satu dataset transaksi (`Orders`).
-
-Pengembangan berikutnya dapat mencakup penggunaan sheet `Returns` dan `People` untuk mempraktikkan:
-
-```text
-JOIN
-Multi-table Analysis
-Return Analysis
-Regional Manager Analysis
-```
+- Menghasilkan Business Insights
+- Memberikan Business Recommendations
