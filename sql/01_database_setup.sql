@@ -1,27 +1,26 @@
 -- =====================================================
 -- PROJECT: Superstore Sales Analysis
 -- FILE: 01_database_setup.sql
--- PURPOSE: Database setup and initial validation
+-- PURPOSE: Create and select the project database
 -- =====================================================
 
 
--- 1. Create project database
+-- =====================================================
+-- 1. Create Project Database
+-- =====================================================
+
 CREATE DATABASE IF NOT EXISTS superstore_portfolio;
 
 
--- 2. Select project database
+-- =====================================================
+-- 2. Select Project Database
+-- =====================================================
+
 USE superstore_portfolio;
 
 
--- 3. Check active database
+-- =====================================================
+-- 3. Confirm Active Database
+-- =====================================================
+
 SELECT DATABASE() AS active_database;
-
-
--- 4. Check raw dataset
-SELECT COUNT(*) AS total_raw_rows
-FROM superstore_portfolio.orders_raw;
-
-
--- 5. Check cleaned dataset
-SELECT COUNT(*) AS total_clean_rows
-FROM superstore_portfolio.orders_clean;
