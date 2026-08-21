@@ -151,6 +151,9 @@ File CSV tersebut kemudian di-import ke MySQL sebagai tabel:
 
 `orders_raw`
 
+> Petunjuk lengkap untuk meng-import dataset ke MySQL dapat dilihat di:
+> [`00_import_instructions.md`](00_import_instructions.md)
+
 Tabel raw dipertahankan agar data asli tetap tersedia dan tidak langsung dimodifikasi.
 
 Setelah proses data cleaning, dibuat tabel:
