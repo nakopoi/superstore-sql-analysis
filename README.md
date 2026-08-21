@@ -796,6 +796,13 @@ Superstore_SQL_Portfolio/
 ├── dataset/
 │   └── orders.csv
 │
+├── images/
+│   ├── 01_overall_kpi.png
+│   ├── 02_discount_analysis.png
+│   ├── 03_yearly_sales_performance.png
+│   ├── 04_region_performance.png
+│   └── 05_advanced_sql_analysis.png
+│
 └── sql/
     ├── 01_database_setup.sql
     ├── 02_data_cleaning.sql
