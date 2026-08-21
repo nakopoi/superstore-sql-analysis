@@ -15,9 +15,11 @@ USE superstore_portfolio;
 SELECT
     ROUND(SUM(sales), 2) AS total_sales,
     ROUND(SUM(profit), 2) AS total_profit,
+    ROUND(SUM(profit) / SUM(sales) * 100, 2) AS profit_margin_pct,
     SUM(quantity) AS total_quantity,
     COUNT(DISTINCT order_id) AS total_orders,
-    COUNT(DISTINCT customer_id) AS total_customers
+    COUNT(DISTINCT customer_id) AS total_customers,
+    ROUND(SUM(sales) / COUNT(DISTINCT order_id), 2) AS average_order_value
 FROM orders_clean;
 
 
